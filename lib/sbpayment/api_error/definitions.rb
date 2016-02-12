@@ -1,3 +1,4 @@
+require 'unicode'
 module Sbpayment; module APIError
 
   PAYMENT_METHOD_DEFINITIONS = {
@@ -310,7 +311,7 @@ module Sbpayment; module APIError
         else
           # Many documents around this library are written in unnormalzed characters.
           # We should keep normalized string in these data. That helps to prevent from problem as `'ジ' != 'ジ'`.
-          summary_or_nested_definitions.unicode_normalize!.freeze
+          summary_or_nested_definitions = Unicode::nfkc(summary_or_nested_definitions).freeze
         end
       end
       definitions.freeze

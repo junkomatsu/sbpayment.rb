@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require 'unicode'
 
 describe Sbpayment::Error do
   subject { Sbpayment::Error.superclass }
@@ -106,7 +107,7 @@ describe Sbpayment::APIError do
   describe '#summary' do
     context 'on a defined APIError' do
       it 'formats with code and summary' do
-        expect(defined_api_error.summary.unicode_normalize).to eq('method: 101(クレジット), type: 23(クレジットカード使用不可), item: 203(分割回数)')
+        expect(Unicode::nfkc(defined_api_error.summary)).to eq('method: 101(クレジット), type: 23(クレジットカード使用不可), item: 203(分割回数)')
       end
     end
 
@@ -128,7 +129,7 @@ describe Sbpayment::APIError do
       expect(defined_api_error.payment_method.code).to eq('101')
       expect(defined_api_error.payment_method.summary).to eq('クレジット')
       expect(defined_api_error.type.code).to eq('23')
-      expect(defined_api_error.type.summary).to eq('クレジットカード使用不可')
+      expect(Unicode::nfkc(defined_api_error.type.summary)).to eq('クレジットカード使用不可')
       expect(defined_api_error.item.code).to eq('203')
       expect(defined_api_error.item.summary).to eq('分割回数')
     end

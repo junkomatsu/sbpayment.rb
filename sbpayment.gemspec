@@ -17,10 +17,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 2.2'
+  spec.required_ruby_version = '>= 2.1.6'
 
   spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'builder'
+  spec.add_dependency 'unicode'
   spec.add_dependency 'xml-simple'
   spec.add_development_dependency 'bundler', '~> 1.8'
   spec.add_development_dependency 'rake', '~> 10.0'
